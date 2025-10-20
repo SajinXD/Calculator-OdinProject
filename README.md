@@ -1,7 +1,7 @@
 # Calculator Project 
 This is a simple on-screen calculator built using **HTML**, **CSS**, and **JavaScript** as part of [The Odin Project](https://www.theodinproject.com/lessons/foundations-calculator) Foundations course.
 
-## 🚀 Features
+## Features
 
 - Basic arithmetic operations: addition, subtraction, multiplication, division
 - Clear button to reset the calculator
@@ -9,13 +9,13 @@ This is a simple on-screen calculator built using **HTML**, **CSS**, and **JavaS
 - Error handling for division by zero
 - Responsive display that updates with user input
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - HTML for structure
 - CSS for styling
 - JavaScript for logic and interactivity
 
-## 📦 How to Use
+## How to Use
 
 1. Clone the repository:
    ```bash
