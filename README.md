@@ -1,2 +1,2 @@
-## Project: Calculator
-# Foundations course
+# Project: Calculator
+## Foundations course
