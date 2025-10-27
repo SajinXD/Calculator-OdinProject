@@ -9,9 +9,9 @@ const divideFunc = (a, b) => {
   return a / b;
 };
 
-let firstNum;
-let currOperator;
-let secondNum;
+let firstNum = null;
+let currOperator = null;
+let secondNum = null;
 let currInput = "";
 
 function operate(operator, a, b) {
@@ -44,12 +44,29 @@ buttonIds.forEach((id) => {
 });
 
 Object.keys(buttons).forEach((id) => {
+
   const button = buttons[id];
 
-  buttons[id].addEventListener("click", () => {
+  button.addEventListener("click", () => {
     if (button.classList.contains("digit")) {
       currInput += button.textContent;
       display.textContent = currInput;
+    }else if(button.classList.contains("operator")) {
+      firstNum = currInput;
+      currInput= "";
+      currOperator = button.textContent;
+    }else if (id === "equalsto"){
+      secondNum = currInput;
+      const output = operate(currOperator, Number(firstNum), Number(secondNum));
+      display.textContent = output;
+      currInput = output.toString();
+    }else if(id === "allclear"){
+      firstNum = null;
+      currOperator = null;
+      secondNum = null;
+      currInput = "";
+      display.textContent = "0";
+    }else if(id === "decimalpoint"){
       
     }
   });
