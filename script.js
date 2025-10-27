@@ -1,7 +1,6 @@
 const addFunc = (a, b) => a + b;
 const multiplyFunc = (a, b) => a * b;
 
-// output value differs from which value is first or second.
 const subtractFunc = (a, b) => a - b;
 const divideFunc = (a, b) => {
   if (b === 0) {
@@ -10,22 +9,48 @@ const divideFunc = (a, b) => {
   return a / b;
 };
 
-let firstNum = null;
-let operation = null;
-let secondNum = null;
+let firstNum;
+let currOperator;
+let secondNum;
+let currInput = "";
 
-function operate(operate, a, b) {
-    switch (operate){
-        case '+':
-            return addFunc(a,b);
-        case '-':
-            return subtractFunc(a,b);
-        case '*':
-            return multiplyFunc(a*b);
-        case '/':
-            return divideFunc(a/b);
-        default: // debug aid, what if user inputs diff value.
-            return null;
-    }
+function operate(operator, a, b) {
+  switch (operator) {
+    case "+":
+      return addFunc(a, b);
+    case "-":
+      return subtractFunc(a, b);
+    case "*":
+      return multiplyFunc(a, b);
+    case "/":
+      return divideFunc(a, b);
+    default: // debug, what if user inputs diff value.
+      return null;
+  }
 }
 
+const display = document.querySelector("#display");
+
+const buttonIds = [
+  "allclear",  "squareroot",  "percentage",  "divide",
+  "seven",  "eight",  "nine",  "multiply",  "four",
+  "five",  "six",  "subtract",  "one",  "two",
+  "three",  "add",  "zero",  "decimalpoint",  "equalsto",
+];
+
+const buttons = {};
+buttonIds.forEach((id) => {
+  buttons[id] = document.querySelector(`#${id}`);
+});
+
+Object.keys(buttons).forEach((id) => {
+  const button = buttons[id];
+
+  buttons[id].addEventListener("click", () => {
+    if (button.classList.contains("digit")) {
+      currInput += button.textContent;
+      display.textContent = currInput;
+      
+    }
+  });
+});
