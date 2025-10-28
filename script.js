@@ -48,18 +48,27 @@ Object.keys(buttons).forEach((id) => {
   const button = buttons[id];
 
   button.addEventListener("click", () => {
-    if (button.classList.contains("digit")) {
-      currInput += button.textContent;
+    if (button.classList.contains("digit")) { 
+      if (currInput === "0"){
+        currInput = button.textContent;
+      }else{
+        currInput += button.textContent;
+      }
       display.textContent = currInput;
     }else if(button.classList.contains("operator")) {
       firstNum = currInput;
       currInput= "";
       currOperator = button.textContent;
     }else if (id === "equalsto"){
-      secondNum = currInput;
-      const output = operate(currOperator, Number(firstNum), Number(secondNum));
-      display.textContent = output;
-      currInput = output.toString();
+      if (firstNum !== null && currOperator !== null){
+        secondNum = currInput;
+        const output = operate(currOperator, Number(firstNum), Number(secondNum));
+        display.textContent = output;
+        currInput = output.toString(); 
+        // currInput will be assign to firstNum (if operator is click)
+        // else secondNum for further calculation if necessary 
+        // and also if allclear is not press 
+      }
     }else if(id === "allclear"){
       firstNum = null;
       currOperator = null;
@@ -67,7 +76,14 @@ Object.keys(buttons).forEach((id) => {
       currInput = "";
       display.textContent = "0";
     }else if(id === "decimalpoint"){
-      
+      if (!currInput.includes(".")){
+        if (currInput === "0" || currInput === ""){
+          currInput = "0.";
+        }else{
+          currInput += ".";
+        }
+      }
+      display.textContent = currInput;
     }
   });
 });
