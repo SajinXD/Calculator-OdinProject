@@ -9,10 +9,13 @@ const divideFunc = (a, b) => {
   return a / b;
 };
 
+const percentageFunc = (a) => a/100;
+
 let firstNum = null;
 let currOperator = null;
 let secondNum = null;
 let currInput = "";
+let lastSecondNum = null;
 
 function operate(operator, a, b) {
   switch (operator) {
@@ -58,16 +61,20 @@ Object.keys(buttons).forEach((id) => {
     }else if(button.classList.contains("operator")) {
       firstNum = currInput;
       currInput= "";
+      lastSecondNum = null;
       currOperator = button.textContent;
     }else if (id === "equalsto"){
       if (firstNum !== null && currOperator !== null){
-        secondNum = currInput;
+        if (lastSecondNum === null){
+          secondNum = currInput;
+          lastSecondNum = secondNum;
+        }else{
+          secondNum = lastSecondNum;
+        }
         const output = operate(currOperator, Number(firstNum), Number(secondNum));
         display.textContent = output;
-        currInput = output.toString(); 
-        // currInput will be assign to firstNum (if operator is click)
-        // else secondNum for further calculation if necessary 
-        // and also if allclear is not press 
+        currInput = output.toString();
+        firstNum = output.toString(); 
       }
     }else if(id === "allclear"){
       firstNum = null;
