@@ -109,3 +109,5 @@ document.querySelectorAll(".btn").forEach((button) => {
 document.addEventListener("keydown", (event) =>{
   mainCalculationFunc(event.key);
 })
+
+// updating commit msg.
