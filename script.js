@@ -3,6 +3,7 @@ let currOperator = null;
 let secondNum = null;
 let currInput = "";
 let lastSecondNum = null;
+let afterEquals = false;
 
 const display = document.querySelector("#display");
 
@@ -17,7 +18,7 @@ function operate(operator, a, b) {
 }
 
 function handleDigit(digit){
-  if (currInput === "0"){
+  if (afterEquals || currInput === "0" || currInput === ""){
     currInput = digit;
   }else{
     currInput += digit;
@@ -31,6 +32,7 @@ function handleOperator(op){
     currInput= "";
     lastSecondNum = null;
     currOperator = op;
+    afterEquals = false;
   }
 }
 
@@ -45,7 +47,8 @@ function handleEquals(){
     const output = operate(currOperator, Number(firstNum), Number(secondNum));
     display.textContent = output;
     currInput = output.toString();
-    firstNum = output.toString(); 
+    firstNum = output.toString();
+    afterEquals = true;
   }
 }
 
@@ -56,11 +59,18 @@ function handleClear(){
   currInput = "";
   display.textContent = "0";
   lastSecondNum = null;
+  afterEquals = false;
 }
 
 function handleDecimal(){
   if (!currInput.includes(".")){
-    currInput = currInput === "0" || currInput === "" ? currInput = "0." : currInput + ".";
+    if (afterEquals || currInput === "0" || currInput === ""){
+      currInput = "0.";
+      afterEquals = false;
+      
+    }else{
+      currInput + ".";
+    }
   }
   display.textContent = currInput;
 }
@@ -70,6 +80,7 @@ function handlePercentage(){
   const result = num /100;
   currInput = result.toString();
   display.textContent = currInput;
+  afterEquals = false;
 }
 
 function handleBackSpace(){
@@ -79,6 +90,7 @@ function handleBackSpace(){
     currInput = "0";
   }
   display.textContent = currInput;
+  afterEquals = false;
 }
 
 function mainCalculationFunc (value){
@@ -92,7 +104,7 @@ function mainCalculationFunc (value){
     handleDecimal();
   }else if(value === "AC"){
     handleClear();
-  }else if(value === "Backspace"){
+  }else if(value === "Backspace" || value === "⌫"){
     handleBackSpace();
   }else if(value === "%"){
     handlePercentage();
@@ -109,5 +121,3 @@ document.querySelectorAll(".btn").forEach((button) => {
 document.addEventListener("keydown", (event) =>{
   mainCalculationFunc(event.key);
 })
-
-// updating commit msg.
