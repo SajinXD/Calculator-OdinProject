@@ -4,6 +4,7 @@ let secondNum = null;
 let currInput = "";
 let lastSecondNum = null;
 let afterEquals = false;
+const MAX_DIGITS = 12;
 
 const display = document.querySelector("#display");
 
@@ -20,7 +21,7 @@ function operate(operator, a, b) {
 function handleDigit(digit){
   if (afterEquals || currInput === "0" || currInput === ""){
     currInput = digit;
-  }else{
+  }else if(currInput.length < MAX_DIGITS){
     currInput += digit;
   }
   display.textContent = currInput;
